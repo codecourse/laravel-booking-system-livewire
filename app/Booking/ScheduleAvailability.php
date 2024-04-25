@@ -3,6 +3,7 @@
 namespace App\Booking;
 
 use Carbon\Carbon;
+use Carbon\CarbonPeriod;
 use Spatie\Period\Period;
 use Spatie\Period\PeriodCollection;
 use Spatie\Period\Precision;
@@ -16,23 +17,12 @@ class ScheduleAvailability
         $this->periods = new PeriodCollection();
     }
 
-    public function forPeriod()
+    public function forPeriod(Carbon $startsAt, Carbon $endsAt)
     {
-        $this->periods = $this->periods->add(
-            Period::make(
-                now()->startOfDay(),
-                now()->addDay()->endOfDay(),
-                Precision::MINUTE()
-            )
-        );
-
-        $this->periods = $this->periods->subtract(
-            Period::make(
-                Carbon::createFromTimeString('12:00'),
-                Carbon::createFromTimeString('13:00'),
-                Precision::MINUTE()
-            )
-        );
+        collect(CarbonPeriod::create($startsAt, $endsAt)->days())
+            ->each(function (Carbon $date) {
+                dump($date->format('l'));
+            });
 
         return $this->periods;
     }
