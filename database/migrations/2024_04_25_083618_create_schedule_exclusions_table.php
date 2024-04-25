@@ -14,8 +14,8 @@ return new class extends Migration
         Schema::create('schedule_exclusions', function (Blueprint $table) {
             $table->id();
             $table->foreignId('employee_id')->constrained();
-            $table->date('starts_at');
-            $table->date('ends_at');
+            $table->datetime('starts_at');
+            $table->datetime('ends_at');
             $table->timestamps();
         });
     }

@@ -10,7 +10,7 @@ class ScheduleExclusion extends Model
     use HasFactory;
 
     protected $casts = [
-        'starts_at' => 'date',
-        'ends_at' => 'date',
+        'starts_at' => 'datetime',
+        'ends_at' => 'datetime',
     ];
 }

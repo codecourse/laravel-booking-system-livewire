@@ -17,7 +17,8 @@ Route::get('/periods', function () {
     $employee = Employee::find(1);
     $service = Service::find(1);
 
-    $availability = (new ScheduleAvailability($employee, $service))->forPeriod(now()->startOfDay(), now()->addDay()->endOfDay());
+    $availability = (new ScheduleAvailability($employee, $service))
+            ->forPeriod(now()->startOfDay(), now()->endOfDay());
 
     dd($availability);
 });

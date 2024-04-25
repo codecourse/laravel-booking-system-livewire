@@ -3,6 +3,7 @@
 namespace App\Booking;
 
 use App\Models\Employee;
+use App\Models\ScheduleExclusion;
 use App\Models\Service;
 use Carbon\Carbon;
 use Carbon\CarbonPeriod;
@@ -24,9 +25,24 @@ class ScheduleAvailability
         collect(CarbonPeriod::create($startsAt, $endsAt)->days())
             ->each(function (Carbon $date) {
                 $this->addAvailabilityFromSchedule($date);
+
+                $this->employee->scheduleExclusions->each(function (ScheduleExclusion $scheduleExclusion) {
+                    $this->subtractScheduleExclusion($scheduleExclusion);
+                });
             });
 
         return $this->periods;
+    }
+
+    protected function subtractScheduleExclusion(ScheduleExclusion $scheduleExclusion)
+    {
+        $this->periods = $this->periods->subtract(
+            Period::make(
+                $scheduleExclusion->starts_at,
+                $scheduleExclusion->ends_at,
+                Precision::MINUTE()
+            )
+        );
     }
 
     protected function addAvailabilityFromSchedule(Carbon $date)
