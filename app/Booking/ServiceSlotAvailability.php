@@ -58,7 +58,7 @@ class ServiceSlotAvailability
                 return $slot->hasEmployees();
             });
 
-            return true;
+            return $date->slots->isNotEmpty();
         });
     }
 

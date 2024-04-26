@@ -1,6 +1,5 @@
 <form class="space-y-10">
     <div>
-        {{ $form->date }}
         <h2 class="text-xl font-medium">Here's what you're booking</h2>
         <div class="mt-6 flex space-x-3 bg-slate-100 rounded-lg p-4">
             @if($employee)
@@ -23,7 +22,15 @@
 
     <div>
         <h2 class="text-xl font-medium">1. When for?</h2>
-        <input x-picker class="mt-6 text-sm bg-slate-100 border-0 rounded-lg px-6 py-4 w-full" placeholder="Choose a date">
+        <input
+            x-data
+            x-picker="{
+                date: '{{ $form->date }}',
+                availability: {{ $this->availabilityJson }}
+            }"
+            class="mt-6 text-sm bg-slate-100 border-0 rounded-lg px-6 py-4 w-full"
+            placeholder="Choose a date"
+        >
     </div>
 
     <div>

@@ -2,6 +2,7 @@
 
 namespace App\Livewire;
 
+use App\Booking\AvailabilityTransformer;
 use App\Booking\ServiceSlotAvailability;
 use App\Livewire\Forms\CheckoutForm;
 use App\Models\Employee;
@@ -13,13 +14,19 @@ class Checkout extends Component
 {
     public Service $service;
 
-    public ?Employee $employee;
+    public ?Employee $employee = null;
 
     public CheckoutForm $form;
 
     public function mount()
     {
         $this->form->date = $this->availability->firstAvailableDate()?->date->toDateString() ?? now()->toDateString();
+    }
+
+    #[Computed()]
+    public function availabilityJson()
+    {
+        return new AvailabilityTransformer($this->availability);
     }
 
     #[Computed(persist: true)]
