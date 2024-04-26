@@ -12,4 +12,11 @@ class DateCollection extends Collection
             return $date->slots->isNotEmpty();
         });
     }
+
+    public function forDate(string $dateToCheck)
+    {
+        return $this->first(function (Date $date) use ($dateToCheck) {
+            return $date->date->toDateString() === $dateToCheck;
+        });
+    }
 }

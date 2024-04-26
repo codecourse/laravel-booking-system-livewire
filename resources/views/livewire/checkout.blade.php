@@ -54,10 +54,11 @@
     @if($form->time)
         <div>
         <h2 class="text-xl font-medium">2. Your details and book</h2>
-
-        <div class="bg-slate-900 text-white py-4 px-6 rounded-lg mt-3">
-            Error
-        </div>
+        @error('form.time')
+            <div class="bg-slate-900 text-white py-4 px-6 rounded-lg mt-3">
+                {{ $message }}
+            </div>
+        @enderror
 
         <div class="mt-6">
             <div>
