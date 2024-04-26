@@ -7,8 +7,10 @@ use App\Booking\Date;
 use App\Booking\ServiceSlotAvailability;
 use App\Booking\Slot;
 use App\Livewire\Forms\CheckoutForm;
+use App\Models\Appointment;
 use App\Models\Employee;
 use App\Models\Service;
+use Carbon\Carbon;
 use Livewire\Attributes\Computed;
 use Livewire\Component;
 
@@ -36,7 +38,26 @@ class Checkout extends Component
             return;
         }
 
-        dd('create appointment');
+        $appointment = $this->createAppointment();
+
+        dd($appointment);
+    }
+
+    protected function createAppointment()
+    {
+        $appointment = Appointment::make(
+            $this->form->only('name', 'email') + [
+                'starts_at' => $startsAt = Carbon::parse($this->form->date)->setTimeFromTimeString($this->form->time),
+                'ends_at' => $startsAt->copy()->addMinutes($this->service->duration),
+            ]
+        );
+
+        $appointment->employee()->associate($this->employee);
+        $appointment->service()->associate($this->service);
+
+        $appointment->save();
+
+        return $appointment;
     }
 
     public function setDate(?string $date)
