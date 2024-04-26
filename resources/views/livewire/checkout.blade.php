@@ -1,14 +1,18 @@
 <form class="space-y-10">
     <div>
+        {{ $form->date }}
         <h2 class="text-xl font-medium">Here's what you're booking</h2>
         <div class="mt-6 flex space-x-3 bg-slate-100 rounded-lg p-4">
-            <img src="{{ $employee->profile_photo_url }}" class="rounded-lg size-14 shrink-0">
-{{--            <div class="rounded-lg size-14 bg-slate-200 shrink-0"></div>--}}
+            @if($employee)
+                <img src="{{ $employee->profile_photo_url }}" class="rounded-lg size-14 shrink-0">
+            @else
+                <div class="rounded-lg size-14 bg-slate-200 shrink-0"></div>
+            @endif
 
             <div class="w-full flex justify-between">
                 <div>
                     <div class="font-semibold">{{ $service->title }} ({{ $service->duration }} minutes)</div>
-                    <div>{{ $employee->name }}</div>
+                    <div>{{ $employee->name ?? 'Any employee' }}</div>
                 </div>
                 <div>
                     {{ $service->price }}

@@ -16,7 +16,7 @@
         <h2 class="text-xl font-medium">Or, choose a service first</h2>
         <div class="grid grid-col-2 md:grid-cols-5 gap-8 mt-6">
             @foreach($services as $service)
-                <x-service :service="$service" />
+                <x-service :href="route('checkout', [$service])" :service="$service" />
             @endforeach
         </div>
     </div>
