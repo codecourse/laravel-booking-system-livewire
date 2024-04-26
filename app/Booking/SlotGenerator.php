@@ -11,7 +11,7 @@ class SlotGenerator
 
     public function generate(int $interval)
     {
-        $collection = collect();
+        $collection = new DateCollection();
 
         $days = CarbonPeriod::create($this->startsAt, '1 day', $this->endsAt);
 
