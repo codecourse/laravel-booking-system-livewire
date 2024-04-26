@@ -44,5 +44,11 @@ export default function (Alpine) {
                 })
             }
         })
+
+        picker.on('select', (e) => {
+            el.dispatchEvent(
+                new CustomEvent('select', { detail: e.detail.date.format('YYYY-MM-DD') })
+            )
+        })
     })
 }

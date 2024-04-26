@@ -1,5 +1,6 @@
 <form class="space-y-10">
     <div>
+        {{ $form->date }}
         <h2 class="text-xl font-medium">Here's what you're booking</h2>
         <div class="mt-6 flex space-x-3 bg-slate-100 rounded-lg p-4">
             @if($employee)
@@ -24,6 +25,7 @@
         <h2 class="text-xl font-medium">1. When for?</h2>
         <input
             x-data
+            x-on:select="$wire.setDate($event.detail)"
             x-picker="{
                 date: '{{ $form->date }}',
                 availability: {{ $this->availabilityJson }}

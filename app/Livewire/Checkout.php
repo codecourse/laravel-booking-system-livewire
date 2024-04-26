@@ -23,6 +23,11 @@ class Checkout extends Component
         $this->form->date = $this->availability->firstAvailableDate()?->date->toDateString() ?? now()->toDateString();
     }
 
+    public function setDate(string $date)
+    {
+        $this->form->date = $date;
+    }
+
     #[Computed()]
     public function availabilityJson()
     {
