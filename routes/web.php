@@ -1,6 +1,7 @@
 <?php
 
 use App\Booking\ScheduleAvailability;
+use App\Booking\ServiceSlotAvailability;
 use App\Booking\SlotGenerator;
 use App\Livewire\EmployeeShow;
 use App\Livewire\Home;
@@ -15,8 +16,11 @@ Route::get('/', Home::class)->name('home');
 Route::get('/employees/{employee:slug}', EmployeeShow::class)->name('employees.show');
 
 Route::get('/periods', function () {
-    $service = Service::find(2);
-    $generator = (new SlotGenerator(now()->startOfDay(), now()->addDay()->endOfDay()));
+    $employees = Employee::get();
+    $service = Service::find(1);
 
-    dd($generator->generate($service->duration));
+    $availability = (new ServiceSlotAvailability($employees, $service))
+        ->forPeriod(now()->startOfDay(), now()->addDay()->endOfDay());
+
+
 });
