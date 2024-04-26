@@ -40,7 +40,7 @@
             <div class="grid grid-cols-3 md:grid-cols-5 gap-8">
                 @if($this->times->isNotEmpty())
                     @foreach($this->times as $time)
-                        <button type="button" class="py-3 px-4 text-sm border border-slate-200 rounded-lg text-center hover:bg-gray-50/75 cursor-pointer">
+                        <button wire:click="setTime('{{ $time }}')" type="button" @class(['py-3 px-4 text-sm border border-slate-200 rounded-lg text-center hover:bg-gray-50/75 cursor-pointer', 'bg-slate-100 hover:slate-100' => $time === $form->time])>
                             {{ $time }}
                         </button>
                     @endforeach

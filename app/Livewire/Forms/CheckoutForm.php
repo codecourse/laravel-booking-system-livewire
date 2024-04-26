@@ -7,5 +7,7 @@ use Livewire\Form;
 
 class CheckoutForm extends Form
 {
-    public string $date;
+    public ?string $date = null;
+
+    public ?string $time = null;
 }

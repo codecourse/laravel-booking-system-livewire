@@ -30,6 +30,11 @@ class Checkout extends Component
         $this->form->date = $date;
     }
 
+    public function setTime(string $time)
+    {
+        $this->form->time = $time;
+    }
+
     #[Computed()]
     public function times()
     {
