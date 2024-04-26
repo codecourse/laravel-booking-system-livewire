@@ -19,4 +19,9 @@ class Slot
     {
         $this->employees->push($employee);
     }
+
+    public function hasEmployees()
+    {
+        return $this->employees->isNotEmpty();
+    }
 }

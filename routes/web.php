@@ -22,5 +22,5 @@ Route::get('/periods', function () {
     $availability = (new ServiceSlotAvailability($employees, $service))
         ->forPeriod(now()->startOfDay(), now()->addDay()->endOfDay());
 
-
+    dd($availability);
 });

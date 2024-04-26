@@ -24,7 +24,20 @@ class ServiceSlotAvailability
             }
         });
 
-        dd($range);
+        $range = $this->removeEmptySlots($range);
+
+        return $range;
+    }
+
+    protected function removeEmptySlots(DateCollection $range)
+    {
+        return $range->filter(function (Date $date) {
+            $date->slots = $date->slots->filter(function (Slot $slot) {
+                return $slot->hasEmployees();
+            });
+
+            return true;
+        });
     }
 
     protected function addAvailableEmployeeForPeriod(DateCollection $range, Period $period, Employee $employee)
