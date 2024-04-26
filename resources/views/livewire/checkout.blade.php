@@ -23,7 +23,7 @@
 
     <div>
         <h2 class="text-xl font-medium">1. When for?</h2>
-        <input class="mt-6 text-sm bg-slate-100 border-0 rounded-lg px-6 py-4 w-full" placeholder="Choose a date">
+        <input x-picker class="mt-6 text-sm bg-slate-100 border-0 rounded-lg px-6 py-4 w-full" placeholder="Choose a date">
     </div>
 
     <div>
