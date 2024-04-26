@@ -25,6 +25,11 @@ class Checkout extends Component
         $this->form->date = $this->availability->firstAvailableDate()?->date->toDateString() ?? now()->toDateString();
     }
 
+    public function submit()
+    {
+        $this->form->validate();
+    }
+
     public function setDate(?string $date)
     {
         if (is_null($date)) {
