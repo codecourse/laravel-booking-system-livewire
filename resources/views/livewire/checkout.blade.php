@@ -1,6 +1,5 @@
 <form class="space-y-10">
     <div>
-        {{ $form->date }}
         <h2 class="text-xl font-medium">Here's what you're booking</h2>
         <div class="mt-6 flex space-x-3 bg-slate-100 rounded-lg p-4">
             @if($employee)
@@ -39,9 +38,15 @@
         <h2 class="text-xl font-medium">2. Choose a slot</h2>
         <div class="mt-6">
             <div class="grid grid-cols-3 md:grid-cols-5 gap-8">
-                <button type="button" class="py-3 px-4 text-sm border border-slate-200 rounded-lg text-center hover:bg-gray-50/75 cursor-pointer">
-                    09:00
-                </button>
+                @if($this->times->isNotEmpty())
+                    @foreach($this->times as $time)
+                        <button type="button" class="py-3 px-4 text-sm border border-slate-200 rounded-lg text-center hover:bg-gray-50/75 cursor-pointer">
+                            {{ $time }}
+                        </button>
+                    @endforeach
+                @else
+                    <p>No slots available for that date</p>
+                @endif
             </div>
         </div>
     </div>

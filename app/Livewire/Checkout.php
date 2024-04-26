@@ -3,7 +3,9 @@
 namespace App\Livewire;
 
 use App\Booking\AvailabilityTransformer;
+use App\Booking\Date;
 use App\Booking\ServiceSlotAvailability;
+use App\Booking\Slot;
 use App\Livewire\Forms\CheckoutForm;
 use App\Models\Employee;
 use App\Models\Service;
@@ -26,6 +28,23 @@ class Checkout extends Component
     public function setDate(string $date)
     {
         $this->form->date = $date;
+    }
+
+    #[Computed()]
+    public function times()
+    {
+        return $this->slots?->map(function (Slot $slot) {
+            return $slot->time->toTimeString('minutes');
+        })
+            ->values();
+    }
+
+    #[Computed()]
+    public function slots()
+    {
+        return $this->availability->first(function (Date $date) {
+            return $date->date->toDateString() === $this->form->date;
+        })?->slots;
     }
 
     #[Computed()]
